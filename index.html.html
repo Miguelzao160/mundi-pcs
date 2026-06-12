@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mundi PCs | Manutenção e Montagem de Computadores</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --bg: #0b0f1a;
+      --bg2: #111827;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --primary: #3b82f6;
+      --border: #1f2a44;
+      --card: #111827;
+    }
+
+    body.light {
+      --bg: #f4f7fb;
+      --bg2: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --border: #dbeafe;
+      --card: #ffffff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: 0.3s;
+    }
+
+    header {
+      background: var(--bg2);
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    nav a, .theme-btn {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 15px;
+    }
+
+    nav a:hover, .theme-btn:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      min-height: 88vh;
+      padding: 90px 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg), var(--bg2));
+    }
+
+    #particles {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .hero-card, .service-card, .plan, form, .contact-info, .about-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .hero-card h3, .service-card h3, .plan h3, .contact-info h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .hero-card li {
+      list-style: none;
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    section {
+      padding: 80px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    .services, .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .service-card {
+      transition: 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+
+    .service-card p, .plan li, .contact-info p, .about p {
+      color: var(--muted);
+    }
+
+    .about, .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .stat {
+      background: var(--bg);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .stat h3 {
+      color: var(--primary);
+      font-size: 28px;
+    }
+
+    .plan.featured {
+      border-color: var(--primary);
+      transform: scale(1.03);
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .plan ul {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      outline: none;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .floating-actions {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+    }
+
+    .float-btn {
+      background: #22c55e;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .call-btn {
+      background: var(--primary);
+    }
+
+    footer {
+      background: var(--bg2);
+      padding: 30px 8%;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      nav a, .theme-btn {
+        margin: 6px;
+        display: inline-block;
+      }
+
+      .hero, .about, .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .services, .plans, .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .plan.featured {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Mundi PCs</div>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#planos">Planos</a>
+    <a href="#contato">Contato</a>
+    <button class="theme-btn" onclick="toggleTheme()">Modo Claro/Escuro</button>
+  </nav>
+</header>
+
+<section class="hero" id="inicio">
+  <canvas id="particles"></canvas>
+
+  <div>
+    <h1>Manutenção e montagem de <span>computadores</span> com qualidade profissional</h1>
+    <p>
+      Soluções completas para computadores, notebooks, setups gamers e empresas.
+      Atendimento rápido, diagnóstico transparente e suporte técnico de confiança.
+    </p>
+    <a href="#contato" class="btn">Solicitar orçamento</a>
+  </div>
+
+  <div class="hero-card">
+    <h3>Atendimento técnico especializado</h3>
+    <ul>
+      <li>✔ Formatação e instalação de programas</li>
+      <li>✔ Limpeza interna e troca de pasta térmica</li>
+      <li>✔ Montagem de PC gamer e profissional</li>
+      <li>✔ Upgrade de SSD, RAM e placa de vídeo</li>
+      <li>✔ Diagnóstico de lentidão e travamentos</li>
+    </ul>
+  </div>
+</section>
+
+<section id="servicos" class="reveal">
+  <div class="section-title">
+    <h2>Nossos Serviços</h2>
+    <p>Soluções completas para computadores, notebooks e setups personalizados.</p>
+  </div>
+
+  <div class="services">
+    <div class="service-card">
+      <h3>Manutenção de Computadores</h3>
+      <p>Diagnóstico completo, correção de falhas, remoção de vírus, lentidão e travamentos.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Montagem de PC</h3>
+      <p>Montamos computadores gamers, profissionais e de escritório com peças compatíveis.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Formatação</h3>
+      <p>Instalação limpa do sistema, drivers, programas essenciais e configuração inicial.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Upgrade de Hardware</h3>
+      <p>Instalação de SSD, memória RAM, placa de vídeo, fonte, processador e outros componentes.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Limpeza Preventiva</h3>
+      <p>Limpeza interna, organização de cabos, troca de pasta térmica e melhoria de refrigeração.</p>
+    </div>
+
+    <div class="service-card">
+      <h3>Consultoria Técnica</h3>
+      <p>Ajudamos você a escolher as melhores peças conforme seu orçamento e necessidade.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="reveal">
+  <div class="about">
+    <div>
+      <div class="section-title" style="text-align:left; margin-bottom:20px;">
+        <h2>Por que escolher a Mundi PCs?</h2>
+        <p>Atendimento transparente, profissional e focado no melhor resultado.</p>
+      </div>
+
+      <p>
+        A Mundi PCs trabalha com diagnóstico claro, orçamento justo e explicação simples sobre o que precisa ser feito.
+      </p>
+
+      <p>
+        Cuidamos do seu equipamento como se fosse nosso, seja para trabalho, estudo, jogos ou uso empresarial.
+      </p>
+    </div>
+
+    <div class="about-box">
+      <h3 style="color: var(--primary); margin-bottom: 15px;">Diferenciais</h3>
+      <p>✔ Atendimento humanizado</p>
+      <p>✔ Orçamento antes da execução</p>
+      <p>✔ Suporte para PCs gamers e profissionais</p>
+      <p>✔ Organização e cuidado com os equipamentos</p>
+
+      <div class="stats">
+        <div class="stat">
+          <h3>+500</h3>
+          <p>Serviços feitos</p>
+        </div>
+        <div class="stat">
+          <h3>98%</h3>
+          <p>Satisfação</p>
+        </div>
+        <div class="stat">
+          <h3>24h</h3>
+          <p>Resposta média</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="reveal">
+  <div class="section-title">
+    <h2>Pacotes de Serviço</h2>
+    <p>Escolha o pacote ideal para sua necessidade.</p>
+  </div>
+
+  <div class="plans">
+    <div class="plan">
+      <h3>Básico</h3>
+      <p>Ideal para diagnóstico e pequenos ajustes.</p>
+      <div class="price">Sob consulta</div>
+      <ul>
+        <li>✔ Diagnóstico inicial</li>
+        <li>✔ Verificação de desempenho</li>
+        <li>✔ Orientação técnica</li>
+      </ul>
+      <a href="#contato" class="btn">Solicitar</a>
+    </div>
+
+    <div class="plan featured">
+      <h3>Completo</h3>
+      <p>Para quem precisa deixar o computador novo.</p>
+      <div class="price">Sob consulta</div>
+      <ul>
+        <li>✔ Formatação</li>
+        <li>✔ Instalação de drivers</li>
+        <li>✔ Limpeza interna</li>
+        <li>✔ Otimização do sistema</li>
+      </ul>
+      <a href="#contato" class="btn">Solicitar</a>
+    </div>
+
+    <div class="plan">
+      <h3>Setup Gamer</h3>
+      <p>Montagem e otimização para alto desempenho.</p>
+      <div class="price">Sob consulta</div>
+      <ul>
+        <li>✔ Montagem completa</li>
+        <li>✔ Organização de cabos</li>
+        <li>✔ Testes de desempenho</li>
+        <li>✔ Configuração inicial</li>
+      </ul>
+      <a href="#contato" class="btn">Solicitar</a>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="reveal">
+  <div class="section-title">
+    <h2>Solicite seu orçamento</h2>
+    <p>Preencha o formulário ou fale diretamente pelo WhatsApp.</p>
+  </div>
+
+  <div class="contact">
+    <form onsubmit="enviarFormulario(event)">
+      <input type="text" id="nome" placeholder="Seu nome" required />
+      <input type="tel" id="telefone" placeholder="Seu telefone" required />
+
+      <select id="servicoContato" required>
+        <option value="">Selecione o serviço</option>
+        <option>Manutenção de computador</option>
+        <option>Montagem de PC</option>
+        <option>Formatação</option>
+        <option>Upgrade de hardware</option>
+        <option>Limpeza preventiva</option>
+        <option>Consultoria técnica</option>
+      </select>
+
+      <textarea id="mensagem" placeholder="Descreva o problema ou serviço desejado"></textarea>
+      <button type="submit">Enviar pelo WhatsApp</button>
+    </form>
+
+    <div class="contact-info">
+      <h3>Informações de contato</h3>
+      <p><strong>WhatsApp:</strong> (00) 00000-0000</p>
+      <p><strong>Telefone:</strong> (00) 0000-0000</p>
+      <p><strong>E-mail:</strong> contato@mundipcs.com.br</p>
+      <p><strong>Atendimento:</strong> Segunda a sábado</p>
+      <p><strong>Horário:</strong> 08h às 18h</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Mundi PCs. Todos os direitos reservados.</p>
+</footer>
+
+<div class="floating-actions">
+  <a class="float-btn call-btn" href="tel:+5500000000000">Ligar agora</a>
+  <a class="float-btn" href="https://wa.me/5500000000000" target="_blank">WhatsApp</a>
+</div>
+
+<script>
+  const numeroWhatsApp = "5500000000000";
+
+  function enviarFormulario(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const servico = document.getElementById("servicoContato").value;
+    const mensagem = document.getElementById("mensagem").value;
+
+    const texto = `Olá! Me chamo ${nome}.
+Meu telefone é ${telefone}.
+Tenho interesse no serviço: ${servico}.
+Mensagem: ${mensagem}`;
+
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+    window.open(url, "_blank");
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+    localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+  }
+
+  function loadTheme() {
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light");
+    }
+  }
+
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll(".reveal");
+
+    reveals.forEach(element => {
+      const windowHeight = window.innerHeight;
+      const elementTop = element.getBoundingClientRect().top;
+
+      if (elementTop < windowHeight - 100) {
+        element.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", revealOnScroll);
+
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.querySelector(".hero").offsetHeight;
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw() {
+      ctx.fillStyle = "rgba(59, 130, 246, 0.8)";
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < 90; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function connectParticles() {
+    for (let a = 0; a < particles.length; a++) {
+      for (let b = a; b < particles.length; b++) {
+        const dx = particles[a].x - particles[b].x;
+        const dy = particles[a].y - particles[b].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 120) {
+          ctx.strokeStyle = "rgba(59, 130, 246, 0.15)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(particles[b].x, particles[b].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+
+    connectParticles();
+    requestAnimationFrame(animateParticles);
+  }
+
+  loadTheme();
+  revealOnScroll();
+  initParticles();
+  animateParticles();
+</script>
+
+</body>
+</html>
